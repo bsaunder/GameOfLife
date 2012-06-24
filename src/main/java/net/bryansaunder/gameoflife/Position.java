@@ -115,7 +115,7 @@ public class Position {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -125,8 +125,8 @@ public class Position {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
-        Position other = (Position) obj;
+
+        final Position other = (Position) obj;
         if (this.xCoord == null) {
             if (other.xCoord != null) {
                 return false;
@@ -134,7 +134,7 @@ public class Position {
         } else if (!this.xCoord.equals(other.xCoord)) {
             return false;
         }
-        
+
         if (this.yCoord == null) {
             if (other.yCoord != null) {
                 return false;
@@ -142,7 +142,7 @@ public class Position {
         } else if (!this.yCoord.equals(other.yCoord)) {
             return false;
         }
-        
+
         return true;
     }
 

@@ -150,4 +150,54 @@ public class CellTest {
         
         assertTrue(cell.isAlive());
     }
+    
+    /**
+     * Alive cell with four alive neighbors should die.
+     */
+    @Test
+    public void isAliveAndFourThenDie() {
+        final Cell cell = new Cell(true);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        final Cell cell3 = new Cell(true);
+        cell.addNeighbor(cell3);
+        
+        final Cell cell4 = new Cell(true);
+        cell.addNeighbor(cell4);
+        
+        final Cell cell5 = new Cell(true);
+        cell.addNeighbor(cell5);
+        
+        cell.update();
+        
+        assertFalse(cell.isAlive());
+    }
+    
+    /**
+     * Dead cell with four alive neighbors should stay dead.
+     */
+    @Test
+    public void isAliveAndFourThenStayDead() {
+        final Cell cell = new Cell(true);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        final Cell cell3 = new Cell(true);
+        cell.addNeighbor(cell3);
+        
+        final Cell cell4 = new Cell(true);
+        cell.addNeighbor(cell4);
+        
+        final Cell cell5 = new Cell(true);
+        cell.addNeighbor(cell5);
+        
+        cell.update();
+        
+        assertFalse(cell.isAlive());
+    }
 }

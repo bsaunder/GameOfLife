@@ -214,7 +214,6 @@ public class GridTest {
         grid.initalize();
         grid.setNeighbors();
         
-        // Setup Initial Blinker State
         grid.killAll();
         
         grid.setCell(new Position(2,1), true);
@@ -239,6 +238,63 @@ public class GridTest {
         assertTrue(grid.getCell(new Position(1,2)).isAlive());
         assertTrue(grid.getCell(new Position(2,2)).isAlive());
         assertTrue(grid.getCell(new Position(3,2)).isAlive());
+        
+    }
+    
+    /**
+     * Tests Beehive Pattern.
+     */
+    @Test
+    public void testBeehive(){
+        final Grid grid = new Grid(6);
+        grid.initalize();
+        grid.setNeighbors();
+        
+        grid.killAll();
+        
+        grid.setCell(new Position(1,2), true);
+        grid.setCell(new Position(2,1), true);
+        grid.setCell(new Position(2,3), true);
+        grid.setCell(new Position(3,1), true);
+        grid.setCell(new Position(3,3), true);
+        grid.setCell(new Position(4,2), true);
+        
+        grid.update();
+        
+        assertFalse(grid.getCell(new Position(0,0)).isAlive());
+        assertFalse(grid.getCell(new Position(1,0)).isAlive());
+        assertFalse(grid.getCell(new Position(2,0)).isAlive());
+        assertFalse(grid.getCell(new Position(3,0)).isAlive());
+        assertFalse(grid.getCell(new Position(4,0)).isAlive());
+        assertFalse(grid.getCell(new Position(5,0)).isAlive());
+        
+        assertFalse(grid.getCell(new Position(0,1)).isAlive());
+        assertFalse(grid.getCell(new Position(1,1)).isAlive());
+        assertTrue(grid.getCell(new Position(2,1)).isAlive());
+        assertTrue(grid.getCell(new Position(3,1)).isAlive());
+        assertFalse(grid.getCell(new Position(4,1)).isAlive());
+        assertFalse(grid.getCell(new Position(5,1)).isAlive());
+        
+        assertFalse(grid.getCell(new Position(0,2)).isAlive());
+        assertTrue(grid.getCell(new Position(1,2)).isAlive());
+        assertFalse(grid.getCell(new Position(2,2)).isAlive());
+        assertFalse(grid.getCell(new Position(3,2)).isAlive());
+        assertTrue(grid.getCell(new Position(4,2)).isAlive());
+        assertFalse(grid.getCell(new Position(5,2)).isAlive());
+        
+        assertFalse(grid.getCell(new Position(0,3)).isAlive());
+        assertFalse(grid.getCell(new Position(1,3)).isAlive());
+        assertTrue(grid.getCell(new Position(2,3)).isAlive());
+        assertTrue(grid.getCell(new Position(3,3)).isAlive());
+        assertFalse(grid.getCell(new Position(4,3)).isAlive());
+        assertFalse(grid.getCell(new Position(5,3)).isAlive());
+        
+        assertFalse(grid.getCell(new Position(0,4)).isAlive());
+        assertFalse(grid.getCell(new Position(1,4)).isAlive());
+        assertFalse(grid.getCell(new Position(2,4)).isAlive());
+        assertFalse(grid.getCell(new Position(3,4)).isAlive());
+        assertFalse(grid.getCell(new Position(4,4)).isAlive());
+        assertFalse(grid.getCell(new Position(5,4)).isAlive());
         
     }
 }

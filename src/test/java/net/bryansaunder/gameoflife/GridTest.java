@@ -1,6 +1,7 @@
 package net.bryansaunder.gameoflife;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -28,5 +29,20 @@ public class GridTest {
     @Test(expected = IllegalArgumentException.class)
     public void ifSmallGridSizeThenThrowException() {
         Grid grid = new Grid(Grid.MIN_GRID_SIZE - 1);
+    }
+
+    /**
+     * Tests that all cells are dead after initialization.
+     */
+    @Test
+    public void gridIsInitializedAndAllCellsDead() {
+        final Grid grid = new Grid(Grid.MIN_GRID_SIZE);
+        grid.initalize();
+
+        for (Cell cell : grid.getCells()) {
+            if (cell == null) {
+                fail("Cell not properly initalized.");
+            }
+        }
     }
 }

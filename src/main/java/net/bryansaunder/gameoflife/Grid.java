@@ -1,6 +1,7 @@
 package net.bryansaunder.gameoflife;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -41,15 +42,6 @@ public class Grid {
     }
 
     /**
-     * Gets the grid size.
-     * 
-     * @return Size of the grid.
-     */
-    public Integer getSize() {
-        return this.size;
-    }
-
-    /**
      * Gets the Array that represents the Cells.
      * 
      * @return 2D Cell Array
@@ -73,6 +65,84 @@ public class Grid {
             final Cell cell = new Cell(randomState);
             this.cells.add(i, cell);
         }
+    }
+
+    /**
+     * Gets the cell at the specified position.
+     * 
+     * @param position
+     *            Position of cell to get
+     * @return Cell at given position
+     */
+    public Cell getCell(final Position position) {
+        final Integer index = position.getIndex(this.size);
+        return this.cells.get(index);
+    }
+
+    /**
+     * Sets the state of the cell at the given position.
+     * 
+     * @param cellPosition
+     *            Position of cell
+     * @param newState
+     *            New cell state
+     */
+    public void setCell(final Position cellPosition, final boolean newState) {
+        final Integer index = cellPosition.getIndex(this.size);
+        final Cell cell = this.cells.get(index);
+        cell.setAlive(newState);
+    }
+
+    /**
+     * Sets the neighbors for all of the Cells.
+     */
+    public void setNeighbors() {
+        for (final Cell cell : this.cells) {
+            // Get Index
+            final Integer index = this.cells.indexOf(cell);
+
+            // Get Position
+            final Position position = Position.getPosition(index, this.size);
+
+            // Find Neighbors
+            List<Position> possibleNeighbors = this.getNeighborPositions(position);
+
+            // Add Neighbors
+            for(Position neighborPosition : possibleNeighbors){
+                Integer neighborIndex = neighborPosition.getIndex(this.size);
+                Cell neighbor = this.cells.get(neighborIndex);
+                cell.addNeighbor(neighbor);
+            }
+        }
+    }
+
+    /**
+     * Gets the Positions for the neighbors of the center.
+     * 
+     * @param center
+     *            Center position
+     * @return List of positions
+     */
+    public List<Position> getNeighborPositions(final Position center) {
+        final List<Position> neighborPositions = new LinkedList<Position>();
+
+        final Integer x = center.getX();
+        final Integer y = center.getY();
+
+        for (Integer c = x - 1; c <= x + 1; c++) {
+            for (Integer r = y - 1; r <= y + 1; r++) {
+                if (c == x && r == y) {
+                    continue;
+                }
+
+                if ((-1 < c && c < this.size) && (-1 < r && r < this.size)) {
+                    neighborPositions.add(new Position(c, r));
+                }
+            }
+        }
+
+        return neighborPositions;
+
     }
 
 }

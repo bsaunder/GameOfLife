@@ -85,4 +85,13 @@ public class Cell {
     public void setAlive(final Boolean state) {
         this.alive = state;
     }
+
+    /**
+     * Gets the list of neighbors.
+     * 
+     * @return List of neighbor cells
+     */
+    public List<Cell> getNeighbors() {
+        return this.neighbors;
+    }
 }

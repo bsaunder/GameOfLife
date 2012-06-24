@@ -106,4 +106,48 @@ public class CellTest {
         
         assertFalse(cell.isAlive());
     }
+    
+    /**
+     * Alive cell with three alive neighbors should stay alive.
+     */
+    @Test
+    public void isAliveAndThreeThenStayAlive() {
+        final Cell cell = new Cell(true);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        final Cell cell3 = new Cell(true);
+        cell.addNeighbor(cell3);
+        
+        final Cell cell4 = new Cell(true);
+        cell.addNeighbor(cell4);
+        
+        cell.update();
+        
+        assertTrue(cell.isAlive());
+    }
+    
+    /**
+     * Dead cell with three alive neighbors should come to life. Zombie Rule.
+     */
+    @Test
+    public void isDeadAndThreeThenZombie() {
+        final Cell cell = new Cell(false);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        final Cell cell3 = new Cell(true);
+        cell.addNeighbor(cell3);
+        
+        final Cell cell4 = new Cell(true);
+        cell.addNeighbor(cell4);
+        
+        cell.update();
+        
+        assertTrue(cell.isAlive());
+    }
 }

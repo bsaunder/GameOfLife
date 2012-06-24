@@ -69,6 +69,8 @@ public class Cell {
 
         if (aliveCount < 2) {
             this.setAlive(false);
+        }else if(!this.isAlive() && aliveCount == 3){
+            this.setAlive(true);
         }
     }
 

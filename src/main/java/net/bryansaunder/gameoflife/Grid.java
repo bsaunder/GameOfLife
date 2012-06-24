@@ -159,7 +159,7 @@ public class Grid {
         for (final Cell cell : this.cells) {
             cell.updateNewState();
         }
-        
+
         for (final Cell cell : this.cells) {
             cell.applyNewState();
         }
@@ -169,43 +169,18 @@ public class Grid {
      * Prints the Grid to the Screen.
      */
     public void printGrid() {
-        int c = 0;
-        for (int i = 0; i < (this.size * this.size); i++) {
-            final Cell cell = this.cells.get(i);
+        for (int i = 1; i <= (this.size * this.size); i++) {
+            final Cell cell = this.cells.get(i - 1);
             if (cell.isAlive()) {
                 System.out.print("[X]");
             } else {
                 System.out.print("[ ]");
             }
-            c++;
 
-            if (c == this.size) {
+            if (i % (this.size) == 0) {
                 System.out.println();
-                c = 0;
             }
         }
-    }
-
-    /**
-     * Main Method. It has a Blinker.
-     * 
-     * @param args
-     *            Command line args.
-     */
-    public static void main(final String[] args) {
-        final Grid grid = new Grid(5);
-        grid.initalize();
-        grid.setNeighbors();
-        
-        grid.killAll();
-        grid.setCell(new Position(2, 1), true);
-        grid.setCell(new Position(2, 2), true);
-        grid.setCell(new Position(2, 3), true);
-
-        grid.printGrid();
-        grid.update();
-        System.out.println("====================================");
-        grid.printGrid();
     }
 
 }

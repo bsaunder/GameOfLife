@@ -47,12 +47,13 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertFalse(cell.isAlive());
     }
-    
+
     /**
      * Dead cell with one alive neighbor should stay dead.
      */
@@ -63,12 +64,13 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertFalse(cell.isAlive());
     }
-    
+
     /**
      * Alive cell with two alive neighbors should stay alive.
      */
@@ -79,15 +81,16 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
+
         final Cell cell3 = new Cell(true);
         cell.addNeighbor(cell3);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertTrue(cell.isAlive());
     }
-    
+
     /**
      * Dead cell with two alive neighbors should stay dead.
      */
@@ -98,15 +101,16 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
+
         final Cell cell3 = new Cell(true);
         cell.addNeighbor(cell3);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertFalse(cell.isAlive());
     }
-    
+
     /**
      * Alive cell with three alive neighbors should stay alive.
      */
@@ -117,18 +121,19 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
+
         final Cell cell3 = new Cell(true);
         cell.addNeighbor(cell3);
-        
+
         final Cell cell4 = new Cell(true);
         cell.addNeighbor(cell4);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertTrue(cell.isAlive());
     }
-    
+
     /**
      * Dead cell with three alive neighbors should come to life. Zombie Rule.
      */
@@ -139,18 +144,19 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
+
         final Cell cell3 = new Cell(true);
         cell.addNeighbor(cell3);
-        
+
         final Cell cell4 = new Cell(true);
         cell.addNeighbor(cell4);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertTrue(cell.isAlive());
     }
-    
+
     /**
      * Alive cell with four alive neighbors should die.
      */
@@ -161,21 +167,22 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
+
         final Cell cell3 = new Cell(true);
         cell.addNeighbor(cell3);
-        
+
         final Cell cell4 = new Cell(true);
         cell.addNeighbor(cell4);
-        
+
         final Cell cell5 = new Cell(true);
         cell.addNeighbor(cell5);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertFalse(cell.isAlive());
     }
-    
+
     /**
      * Dead cell with four alive neighbors should stay dead.
      */
@@ -186,18 +193,37 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
-        
+
         final Cell cell3 = new Cell(true);
         cell.addNeighbor(cell3);
-        
+
         final Cell cell4 = new Cell(true);
         cell.addNeighbor(cell4);
-        
+
         final Cell cell5 = new Cell(true);
         cell.addNeighbor(cell5);
-        
-        cell.update();
-        
+
+        cell.updateNewState();
+        cell.applyNewState();
+
         assertFalse(cell.isAlive());
+    }
+
+    /**
+     * Tests the new state is applied correctly.
+     */
+    @Test
+    public void applyState() {
+        final Cell cell = new Cell(true);
+        assertTrue(cell.isAlive());
+        assertTrue(cell.getNewState());
+
+        cell.setNewState(false);
+        assertTrue(cell.isAlive());
+        assertFalse(cell.getNewState());
+
+        cell.applyNewState();
+        assertFalse(cell.isAlive());
+        assertFalse(cell.getNewState());
     }
 }

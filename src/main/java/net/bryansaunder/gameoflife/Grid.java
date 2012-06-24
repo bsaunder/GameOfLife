@@ -56,11 +56,9 @@ public class Grid {
     public void initalize() {
         final Integer gridSize = this.size * this.size;
         for (Integer i = 0; i < gridSize; i++) {
-            final Boolean randomState;
+            Boolean randomState = false;
             if (Math.random() > 0.5) {
                 randomState = true;
-            } else {
-                randomState = false;
             }
             final Cell cell = new Cell(randomState);
             this.cells.add(i, cell);
@@ -105,12 +103,12 @@ public class Grid {
             final Position position = Position.getPosition(index, this.size);
 
             // Find Neighbors
-            List<Position> possibleNeighbors = this.getNeighborPositions(position);
+            final List<Position> possibleNeighbors = this.getNeighborPositions(position);
 
             // Add Neighbors
-            for(Position neighborPosition : possibleNeighbors){
-                Integer neighborIndex = neighborPosition.getIndex(this.size);
-                Cell neighbor = this.cells.get(neighborIndex);
+            for (final Position neighborPosition : possibleNeighbors) {
+                final Integer neighborIndex = neighborPosition.getIndex(this.size);
+                final Cell neighbor = this.cells.get(neighborIndex);
                 cell.addNeighbor(neighbor);
             }
         }
@@ -143,6 +141,71 @@ public class Grid {
 
         return neighborPositions;
 
+    }
+
+    /**
+     * Kills all cells on the grid.
+     */
+    public void killAll() {
+        for (final Cell cell : this.cells) {
+            cell.setAlive(false);
+        }
+    }
+
+    /**
+     * Triggers All the Cells to Update.
+     */
+    public void update() {
+        for (final Cell cell : this.cells) {
+            cell.updateNewState();
+        }
+        
+        for (final Cell cell : this.cells) {
+            cell.applyNewState();
+        }
+    }
+
+    /**
+     * Prints the Grid to the Screen.
+     */
+    public void printGrid() {
+        int c = 0;
+        for (int i = 0; i < (this.size * this.size); i++) {
+            final Cell cell = this.cells.get(i);
+            if (cell.isAlive()) {
+                System.out.print("[X]");
+            } else {
+                System.out.print("[ ]");
+            }
+            c++;
+
+            if (c == this.size) {
+                System.out.println();
+                c = 0;
+            }
+        }
+    }
+
+    /**
+     * Main Method. It has a Blinker.
+     * 
+     * @param args
+     *            Command line args.
+     */
+    public static void main(final String[] args) {
+        final Grid grid = new Grid(5);
+        grid.initalize();
+        grid.setNeighbors();
+        
+        grid.killAll();
+        grid.setCell(new Position(2, 1), true);
+        grid.setCell(new Position(2, 2), true);
+        grid.setCell(new Position(2, 3), true);
+
+        grid.printGrid();
+        grid.update();
+        System.out.println("====================================");
+        grid.printGrid();
     }
 
 }

@@ -188,4 +188,57 @@ public class GridTest {
         assertTrue(positions.contains(new Position(2, 1)));
         assertFalse(positions.contains(new Position(2, 2)));
     }
+    
+    /**
+     * Tests all Cells are Killed.
+     */
+    @Test
+    public void testKillAll(){
+        final Grid grid = new Grid(Grid.MIN_GRID_SIZE);
+        grid.initalize();
+        grid.killAll();
+        
+        for(Cell cell : grid.getCells()){
+            if(cell.isAlive()){
+                fail("Cell is not dead.");
+            }
+        }
+    }
+    
+    /**
+     * Tests Blinker Pattern.
+     */
+    @Test
+    public void testBlinker(){
+        final Grid grid = new Grid(5);
+        grid.initalize();
+        grid.setNeighbors();
+        
+        // Setup Initial Blinker State
+        grid.killAll();
+        
+        grid.setCell(new Position(2,1), true);
+        grid.setCell(new Position(2,2), true);
+        grid.setCell(new Position(2,3), true);
+        
+        grid.update();
+        
+        assertFalse(grid.getCell(new Position(0,1)).isAlive());
+        assertFalse(grid.getCell(new Position(1,1)).isAlive());
+        assertFalse(grid.getCell(new Position(2,1)).isAlive());
+        assertFalse(grid.getCell(new Position(3,1)).isAlive());
+        assertFalse(grid.getCell(new Position(4,1)).isAlive());
+        assertFalse(grid.getCell(new Position(0,3)).isAlive());
+        assertFalse(grid.getCell(new Position(1,3)).isAlive());
+        assertFalse(grid.getCell(new Position(2,3)).isAlive());
+        assertFalse(grid.getCell(new Position(3,3)).isAlive());
+        assertFalse(grid.getCell(new Position(4,3)).isAlive());
+        assertFalse(grid.getCell(new Position(0,2)).isAlive());
+        assertFalse(grid.getCell(new Position(4,2)).isAlive());
+        
+        assertTrue(grid.getCell(new Position(1,2)).isAlive());
+        assertTrue(grid.getCell(new Position(2,2)).isAlive());
+        assertTrue(grid.getCell(new Position(3,2)).isAlive());
+        
+    }
 }

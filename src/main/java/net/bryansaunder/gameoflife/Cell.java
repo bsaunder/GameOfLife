@@ -20,6 +20,11 @@ public class Cell {
     private Boolean alive;
 
     /**
+     * Holder for New State.
+     */
+    private Boolean newState;
+
+    /**
      * List of neighbor cells.
      */
     private final List<Cell> neighbors;
@@ -32,6 +37,7 @@ public class Cell {
      */
     public Cell(final Boolean state) {
         this.alive = state;
+        this.newState = state;
         this.neighbors = new LinkedList<Cell>();
     }
 
@@ -59,20 +65,20 @@ public class Cell {
     /**
      * Checks game rules and updates cell status.
      */
-    public void update() {
+    public void updateNewState() {
         Integer aliveCount = 0;
-        for (Cell neighbor : this.neighbors) {
+        for (final Cell neighbor : this.neighbors) {
             if (neighbor.isAlive()) {
                 aliveCount++;
             }
         }
 
         if (aliveCount < 2) {
-            this.setAlive(false);
-        }else if(!this.isAlive() && aliveCount == 3){
-            this.setAlive(true);
-        }else if(aliveCount > 3){
-            this.setAlive(false);
+            this.setNewState(false);
+        } else if (!this.isAlive() && aliveCount == 3) {
+            this.setNewState(true);
+        } else if (aliveCount > 3) {
+            this.setNewState(false);
         }
     }
 
@@ -84,6 +90,7 @@ public class Cell {
      */
     public void setAlive(final Boolean state) {
         this.alive = state;
+        this.newState = state;
     }
 
     /**
@@ -93,5 +100,31 @@ public class Cell {
      */
     public List<Cell> getNeighbors() {
         return this.neighbors;
+    }
+
+    /**
+     * Gets the new state.
+     * 
+     * @return the newState
+     */
+    public Boolean getNewState() {
+        return this.newState;
+    }
+
+    /**
+     * Sets the new state.
+     * 
+     * @param newCellState
+     *            the newState to set
+     */
+    public void setNewState(final Boolean newCellState) {
+        this.newState = newCellState;
+    }
+
+    /**
+     * Applies the new State of the Cell.
+     */
+    public void applyNewState() {
+        this.setAlive(this.newState);
     }
 }

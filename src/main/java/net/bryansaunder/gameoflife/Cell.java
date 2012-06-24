@@ -15,17 +15,17 @@ import java.util.List;
 public class Cell {
 
     /**
-     * Cell State.
+     * Cell state.
      */
-    private final Boolean alive;
+    private Boolean alive;
 
     /**
-     * List of Neighbor Cells.
+     * List of neighbor cells.
      */
     private final List<Cell> neighbors;
 
     /**
-     * Creates Cell with Initial State.
+     * Creates cell with initial state.
      * 
      * @param state
      *            Initial Cell State.
@@ -45,7 +45,7 @@ public class Cell {
     }
 
     /**
-     * Adds a Cell as a Neighbor.
+     * Adds a cell as a neighbor.
      * 
      * @param neighbor
      *            Neighbor Cell to Add.
@@ -54,5 +54,31 @@ public class Cell {
         if (neighbor != null) {
             this.neighbors.add(neighbor);
         }
+    }
+
+    /**
+     * Checks game rules and updates cell status.
+     */
+    public void update() {
+        Integer aliveCount = 0;
+        for (Cell neighbor : this.neighbors) {
+            if (neighbor.isAlive()) {
+                aliveCount++;
+            }
+        }
+
+        if (aliveCount < 2) {
+            this.setAlive(false);
+        }
+    }
+
+    /**
+     * Sets the state of the cell.
+     * 
+     * @param state
+     *            New state of cell.
+     */
+    public void setAlive(final Boolean state) {
+        this.alive = state;
     }
 }

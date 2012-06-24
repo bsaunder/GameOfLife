@@ -47,5 +47,63 @@ public class CellTest {
 
         final Cell cell2 = new Cell(true);
         cell.addNeighbor(cell2);
+        
+        cell.update();
+        
+        assertFalse(cell.isAlive());
+    }
+    
+    /**
+     * Dead cell with one alive neighbor should stay dead.
+     */
+    @Test
+    public void isDeadAndOneThenStayDead() {
+        final Cell cell = new Cell(false);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        cell.update();
+        
+        assertFalse(cell.isAlive());
+    }
+    
+    /**
+     * Alive cell with two alive neighbors should stay alive.
+     */
+    @Test
+    public void isAliveAndTwoThenStayAlive() {
+        final Cell cell = new Cell(true);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        final Cell cell3 = new Cell(true);
+        cell.addNeighbor(cell3);
+        
+        cell.update();
+        
+        assertTrue(cell.isAlive());
+    }
+    
+    /**
+     * Dead cell with two alive neighbors should stay dead.
+     */
+    @Test
+    public void isDeadAndTwoThenStayDead() {
+        final Cell cell = new Cell(false);
+        assertNotNull(cell);
+
+        final Cell cell2 = new Cell(true);
+        cell.addNeighbor(cell2);
+        
+        final Cell cell3 = new Cell(true);
+        cell.addNeighbor(cell3);
+        
+        cell.update();
+        
+        assertFalse(cell.isAlive());
     }
 }

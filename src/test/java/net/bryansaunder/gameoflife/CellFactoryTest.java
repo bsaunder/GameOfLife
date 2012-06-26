@@ -19,7 +19,7 @@ public class CellFactoryTest {
      */
     @Test
     public void getAliveCell() {
-        Cell cell = CellFactory.getInstance(Cell.ALIVE);
+        final Cell cell = CellFactory.getInstance(Cell.ALIVE);
 
         assertTrue(cell.isAlive());
     }
@@ -29,7 +29,7 @@ public class CellFactoryTest {
      */
     @Test
     public void getDeadCell() {
-        Cell cell = CellFactory.getInstance(Cell.DEAD);
+        final Cell cell = CellFactory.getInstance(Cell.DEAD);
 
         assertFalse(cell.isAlive());
     }
@@ -40,7 +40,7 @@ public class CellFactoryTest {
     @SuppressWarnings("unused")
     @Test(expected = IllegalArgumentException.class)
     public void getCellWithInvalidState() {
-        Cell cell = CellFactory.getInstance(5);
+        final Cell cell = CellFactory.getInstance(5);
     }
 
     /**
@@ -48,7 +48,7 @@ public class CellFactoryTest {
      */
     @Test
     public void getRandomCell() {
-        Cell cell = CellFactory.getRandomInstance();
+        final Cell cell = CellFactory.getRandomInstance();
 
         assertNotNull(cell);
     }

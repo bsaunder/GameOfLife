@@ -23,7 +23,7 @@ public final class CellFactory {
      * 
      * @return New Cell
      */
-    public static Cell getInstance(Integer cellState) {
+    public static Cell getInstance(final Integer cellState) {
         Cell newCell;
         if (cellState == Cell.ALIVE) {
             newCell = new Cell(true);

@@ -19,7 +19,7 @@ public class GameBoardTest {
      */
     @Test
     public void testCreation() {
-        GameBoard board = new GameBoard(Grid.MIN_GRID_SIZE);
+        final GameBoard board = new GameBoard(Grid.MIN_GRID_SIZE);
 
         assertNotNull(board);
     }

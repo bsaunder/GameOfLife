@@ -25,7 +25,7 @@ public final class Main {
      *            Command line args.
      */
     public static void main(final String[] args) {
-        GameBoard board = new GameBoard(5);
+        final GameBoard board = new GameBoard(5);
 
         board.killAll();
         board.setCell(new Position(2, 1), true);

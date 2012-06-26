@@ -47,7 +47,7 @@ public class GameBoard {
      * @param newState
      *            New Cell state
      */
-    public void setCell(Position cellPosition, Boolean newState) {
+    public void setCell(final Position cellPosition, final Boolean newState) {
         this.grid.setCell(cellPosition, newState);
     }
 
@@ -58,7 +58,7 @@ public class GameBoard {
      *            Position of the cell
      * @return Cell
      */
-    public Cell getCell(Position position) {
+    public Cell getCell(final Position position) {
         return this.grid.getCell(position);
     }
 

@@ -10,22 +10,22 @@ import java.util.List;
  * @author Bryan Saunders <btsaunde@gmail.com>
  * 
  */
-public class Grid {
+public class Grid extends ArrayList<Cell> {
 
     /**
      * Minimum Grid Size.
      */
-    public static final int MIN_GRID_SIZE = 3;
+    public static final Integer MIN_GRID_SIZE = 3;
+
+    /**
+     * Serial Version ID.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * Grid Size.
      */
     private final Integer size;
-
-    /**
-     * All of the Cells on the Grid.
-     */
-    private final List<Cell> cells;
 
     /**
      * Creates Grid of the specified size.
@@ -38,16 +38,6 @@ public class Grid {
             throw new IllegalArgumentException("Grid size must be 3 or larger");
         }
         this.size = gridSize;
-        this.cells = new ArrayList<Cell>(this.size * this.size);
-    }
-
-    /**
-     * Gets the Array that represents the Cells.
-     * 
-     * @return 2D Cell Array
-     */
-    public List<Cell> getCells() {
-        return this.cells;
     }
 
     /**
@@ -56,12 +46,8 @@ public class Grid {
     public void initalize() {
         final Integer gridSize = this.size * this.size;
         for (Integer i = 0; i < gridSize; i++) {
-            Boolean randomState = false;
-            if (Math.random() > 0.5) {
-                randomState = true;
-            }
-            final Cell cell = new Cell(randomState);
-            this.cells.add(i, cell);
+            final Cell cell = CellFactory.getRandomInstance();
+            this.add(i, cell);
         }
     }
 
@@ -74,7 +60,7 @@ public class Grid {
      */
     public Cell getCell(final Position position) {
         final Integer index = position.getIndex(this.size);
-        return this.cells.get(index);
+        return this.get(index);
     }
 
     /**
@@ -87,7 +73,7 @@ public class Grid {
      */
     public void setCell(final Position cellPosition, final boolean newState) {
         final Integer index = cellPosition.getIndex(this.size);
-        final Cell cell = this.cells.get(index);
+        final Cell cell = this.get(index);
         cell.setAlive(newState);
     }
 
@@ -95,9 +81,9 @@ public class Grid {
      * Sets the neighbors for all of the Cells.
      */
     public void setNeighbors() {
-        for (final Cell cell : this.cells) {
+        for (final Cell cell : this) {
             // Get Index
-            final Integer index = this.cells.indexOf(cell);
+            final Integer index = this.indexOf(cell);
 
             // Get Position
             final Position position = Position.getPosition(index, this.size);
@@ -108,7 +94,7 @@ public class Grid {
             // Add Neighbors
             for (final Position neighborPosition : possibleNeighbors) {
                 final Integer neighborIndex = neighborPosition.getIndex(this.size);
-                final Cell neighbor = this.cells.get(neighborIndex);
+                final Cell neighbor = this.get(neighborIndex);
                 cell.addNeighbor(neighbor);
             }
         }
@@ -121,7 +107,7 @@ public class Grid {
      *            Center position
      * @return List of positions
      */
-    public List<Position> getNeighborPositions(final Position center) {
+    protected final List<Position> getNeighborPositions(final Position center) {
         final List<Position> neighborPositions = new LinkedList<Position>();
 
         final Integer x = center.getX();
@@ -147,7 +133,7 @@ public class Grid {
      * Kills all cells on the grid.
      */
     public void killAll() {
-        for (final Cell cell : this.cells) {
+        for (final Cell cell : this) {
             cell.setAlive(false);
         }
     }
@@ -156,31 +142,22 @@ public class Grid {
      * Triggers All the Cells to Update.
      */
     public void update() {
-        for (final Cell cell : this.cells) {
+        for (final Cell cell : this) {
             cell.updateNewState();
         }
 
-        for (final Cell cell : this.cells) {
+        for (final Cell cell : this) {
             cell.applyNewState();
         }
     }
 
     /**
-     * Prints the Grid to the Screen.
+     * Gets the grid size.
+     * 
+     * @return Size of the grid
      */
-    public void printGrid() {
-        for (int i = 1; i <= (this.size * this.size); i++) {
-            final Cell cell = this.cells.get(i - 1);
-            if (cell.isAlive()) {
-                System.out.print("[X]");
-            } else {
-                System.out.print("[ ]");
-            }
-
-            if (i % (this.size) == 0) {
-                System.out.println();
-            }
-        }
+    public Integer getSize() {
+        return this.size;
     }
 
 }

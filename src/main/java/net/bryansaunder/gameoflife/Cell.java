@@ -15,6 +15,16 @@ import java.util.List;
 public class Cell {
 
     /**
+     * Alive Cell State.
+     */
+    public static final Integer ALIVE = 1;
+
+    /**
+     * Dead Cell State.
+     */
+    public static final Integer DEAD = 0;
+
+    /**
      * Cell state.
      */
     private Boolean alive;

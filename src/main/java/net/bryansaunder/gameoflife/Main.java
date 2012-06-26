@@ -25,18 +25,16 @@ public final class Main {
      *            Command line args.
      */
     public static void main(final String[] args) {
-        final Grid grid = new Grid(5);
-        grid.initalize();
-        grid.setNeighbors();
+        GameBoard board = new GameBoard(5);
 
-        grid.killAll();
-        grid.setCell(new Position(2, 1), true);
-        grid.setCell(new Position(2, 2), true);
-        grid.setCell(new Position(2, 3), true);
+        board.killAll();
+        board.setCell(new Position(2, 1), true);
+        board.setCell(new Position(2, 2), true);
+        board.setCell(new Position(2, 3), true);
 
-        grid.printGrid();
-        grid.update();
+        board.print();
+        board.tick();
         System.out.println("====================================");
-        grid.printGrid();
+        board.print();
     }
 }

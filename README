@@ -1,4 +1,4 @@
-Java Implementation of Conway's Game of Life. Using TDD and other techniques taken from Charleston Code Retreat on June 23, 2012.
+Java Implementation of Conway's Game of Life. Using Test Driven Development and other techniques taken from Charleston Code Retreat on June 23, 2012.
 
 Resources:
 http://en.wikipedia.org/wiki/Conway's_Game_of_Life
